@@ -7,6 +7,8 @@
 %ler os dados
 topo:- 
     read(X).
+    print(X).
+    
 
 %pegar informacoes das figuras(Circulo: posicao do centro e raio,
 % quadrado: centro e lados -> vertices)
