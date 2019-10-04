@@ -5,7 +5,7 @@
 %rodar como 
 %swipl -q -f seu-prog.pr -t topo  < arqtestes.in
 %ler os dados
-main:- 
+topo:- 
     read(X).
 
 %pegar informacoes das figuras(Circulo: posicao do centro e raio,
