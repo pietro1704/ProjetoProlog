@@ -7,13 +7,18 @@
 %ler os dados
 topo:- 
     read(X),
+    %processINPUT(X, Resposta).
+    %FormataSaida(Resposta, Impressao)
+    % print(Impressao)
     print(X).
-    
+
+%fazer os algoritmo tudo
+% process([], []).
+% process([X, Y|Xs],Resp):- checaIntercessao(X, Y, RR), Resp = [RR|process(Xs)].
+
 
 %pegar informacoes das figuras(Circulo: posicao do centro e raio,
 % quadrado: centro e lados -> vertices)
-
-%fazer os algoritmo tudo
 
 %intersecao quadrado-quadrado
 
