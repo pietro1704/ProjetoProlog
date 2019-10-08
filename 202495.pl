@@ -2,9 +2,11 @@
 % Pietro Ruy Pugliesi RA: 185921
 
 
-%rodar como 
+%rodar como: 
 %swipl -q -f seu-prog.pr -t topo  < arqtestes.in
 %ler os dados
+%oioioioi
+
 topo:- 
     read(X),
     %processINPUT(X, Resposta).
@@ -13,15 +15,15 @@ topo:-
     print(X).
 
 %fazer os algoritmo tudo
-% process([], []).
-% process([X, Y|Xs],Resp):- checaIntercessao(X, Y, RR), Resp = [RR|process(Xs)].
+process([], []).
+process([X|[]],X).
+process([X, Y|Xs],Resp):- checaIntercessao(X, Y, RR), Resp = [RR|process(Xs)].
 
 
 %pegar informacoes das figuras(Circulo: posicao do centro e raio,
 % quadrado: centro e lados -> vertices)
-
 %intersecao quadrado-quadrado
-
+checaIntercessao(quad(nome1, X1, Y1, L1), quad(nome2, X2, Y2, L2), Resp):-
 %intersecao circulo-circulo
 
 %intersecao quadrado-circulo
