@@ -22,26 +22,31 @@ process([X, Y|Xs],Resp):- checaIntercessao(X, Y, RR), Resp = [RR|process(Xs)].
 
 %pegar informacoes das figuras(Circulo: posicao do centro e raio,
 % quadrado: centro e lados -> vertices)
-%intersecao quadrado-quadrado
-% checaIntercessao(quad(nome1, X1, Y1, L1), quad(nome2, X2, Y2, L2), Resp):-  extremosQuadrado(X1,Y1,L,L1X,L1Y,R1X,R1Y),
-%                                                                             extremosQuadrado(X1,Y1,L,L2X,L2Y,R2X,R2Y), 
-%                                                                             \(L1X>R2X; L2X>R1X; L1Y<R2Y; L2Y<R1Y) -> 
-%                                                                             Resp = (quad(nome1, X1, Y1, L1), quad(nome2, X2, Y2, L2)); fail.
-% % %intersecao circulo-circulo
-% checaIntercessao(circ(nome1, X1, Y1, R1), circ(nome2, X2, Y2, R2), Resp):- distancia(X1,Y1,X2,Y2) < R1+R2 -> Resp = (circ(nome1, X1, Y1, R1), circ(nome2, X2, Y2, R2)); fail.
-% % %intersecao quadrado-circulo
-% checaIntercessao(quad(nome1, X1, Y1, L1), circ(nome2, X2, Y2, R2), Resp):- .
+% intersecao quadrado-quadrado
+checaIntercessao(quad(Nome1, X1, Y1, L1), quad(Nome2, X2, Y2, L2), Resp):-  extremosQuadrado(X1,Y1,L1,L1X,L1Y,R1X,R1Y), 
+                                                                            extremosQuadrado(X2,Y2,L2,L2X,L2Y,R2X,R2Y), 
+                                                                            (L1X=<R2X, L2X=<R1X, L1Y>=R2Y, L2Y>=R1Y) -> 
+                                                                            Resp = (quad(Nome1, X1, Y1, L1), quad(Nome2, X2, Y2, L2)); fail.
+% %intersecao circulo-circulo
+checaIntercessao(circ(Nome1, X1, Y1, R1), circ(Nome2, X2, Y2, R2), Resp):-  distancia(X1,Y1,X2,Y2,D), D < R1+R2 -> 
+                                                                            Resp = (circ(Nome1, X1, Y1, R1), circ(Nome2, X2, Y2, R2)); fail.
+% %intersecao quadrado-circulo
+checaIntercessao(quad(Nome1, X1, Y1, L1), circ(Nome2, X2, Y2, R2), Resp):-  delta(X1,X2,L1,DX), 
+print(DX),
+                                                                            delta(Y1,Y2,L1,DY),
+                                                                            (DX*DX + DY*DY) < R2*R2 ->
+                                                                            Resp = (quad(Nome1, X1, Y1, L1), circ(Nome2, X2, Y2, R2)); fail.
+checaIntercessao(circ(Nome1, X1, Y1, R1), quad(Nome2, X2, Y2, R2), Resp):- checaIntercessao(quad(Nome2, X2, Y2, L2), circ(Nome1, X1, Y1, R1), Resp).
+
 
 % Calcula distancia entre dois pontos
 distancia(X1,Y1,X2,Y2,D) :- D is sqrt((X2-X1)^2 + (Y2-Y1)^2).
 % Calcula extremos do quadrado
 extremosQuadrado(X1,Y1,L,L1X,L1Y,R1X,R1Y) :- L1X is X1-L/2, L1Y is Y1+L/2, R1X is X1+L/2, R1Y is Y1-L/2 .
 % Calcula delta
-delta(Q,C,L,D) :- D is (C - max(Q, min(C, Q+L))).
+delta(CoordQuad,CoordCirc,Lado,Delta) :- Delta is (CoordCirc - max(CoordQuad, min(CoordCirc, CoordQuad+Lado))).
 
-gt(X,Y,Z) :- Z is max(X,Y) .
 
-% checaIntercessao(circ(nome1, X1, Y1, R1), quad(nome2, X2, Y2, R2), Resp):- 
 
 %talvez separar pra nao ler a mesma intercessao 2 vezes
 
