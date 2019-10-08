@@ -43,7 +43,7 @@ distancia(X1,Y1,X2,Y2,D) :- D is sqrt((X2-X1)^2 + (Y2-Y1)^2).
 % Calcula extremos do quadrado
 extremosQuadrado(X1,Y1,L,L1X,L1Y,R1X,R1Y) :- L1X is X1-L/2, L1Y is Y1+L/2, R1X is X1+L/2, R1Y is Y1-L/2 .
 % Calcula delta
-delta(CoordQuad,CoordCirc,Lado,Delta) :- Delta is (CoordCirc - max(CoordQuad, min(CoordCirc, CoordQuad+Lado))).
+delta(CoordQuad,CoordCirc,Lado,Delta) :- Delta is (CoordCirc - max((CoordQuad-Lado/2), min(CoordCirc, (CoordQuad-Lado/2)+Lado))).
 
 
 
