@@ -32,11 +32,10 @@ checaIntercessao(circ(Nome1, X1, Y1, R1), circ(Nome2, X2, Y2, R2), Resp):-  dist
                                                                             Resp = (circ(Nome1, X1, Y1, R1), circ(Nome2, X2, Y2, R2)); fail.
 % %intersecao quadrado-circulo
 checaIntercessao(quad(Nome1, X1, Y1, L1), circ(Nome2, X2, Y2, R2), Resp):-  delta(X1,X2,L1,DX), 
-print(DX),
                                                                             delta(Y1,Y2,L1,DY),
                                                                             (DX*DX + DY*DY) < R2*R2 ->
                                                                             Resp = (quad(Nome1, X1, Y1, L1), circ(Nome2, X2, Y2, R2)); fail.
-checaIntercessao(circ(Nome1, X1, Y1, R1), quad(Nome2, X2, Y2, R2), Resp):- checaIntercessao(quad(Nome2, X2, Y2, L2), circ(Nome1, X1, Y1, R1), Resp).
+checaIntercessao(circ(Nome1, X1, Y1, R1), quad(Nome2, X2, Y2, L2), Resp):- checaIntercessao(quad(Nome2, X2, Y2, L2), circ(Nome1, X1, Y1, R1), Resp).
 
 
 % Calcula distancia entre dois pontos
