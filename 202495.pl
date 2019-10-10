@@ -9,16 +9,54 @@
 
 topo:- 
     read(X),
-    %processINPUT(X, Resposta).
-    %FormataSaida(Resposta, Impressao)
+    % process(X, Resposta),
+    % print(Resposta),
+    % FormataSaida(Resposta, Impressao)
     % print(Impressao)
-    print(X).
+    tam(X,Tamanho),
+    inverte(X,Invertida,[]),
+    percorre_lista(Tamanho, X, Invertida, Resp), print(X).
+
 
 %fazer os algoritmo tudo
-process([], []).
-process([X|[]],X).
-process([X, Y|Xs],Resp):- checaIntercessao(X, Y, RR), Resp = [RR|process(Xs)].
+percorre_lista(Tam, [X|Xs], Invertida, Resp) :-
+    ( Tam==0 -> Resp = true;
+    
+        Tam1 is Tam-1,
 
+        percorre2_lista(Tam, Invertida, X, Resp),
+
+        percorre_lista(Tam1, Xs, Invertida, Resp)
+    ).
+
+
+percorre2_lista(N, [X|Xs], Elem, Resp) :-
+    ( N==1 -> Resp = true;
+
+        N1 is N -1,
+
+        print(Elem), print(-------), print(X), nl,
+
+        percorre2_lista(N1, Xs, Elem, Resp)
+    ).
+
+% percorre2_lista(Inicio, Tam, [X|Xs], Elem, Resp) :-
+%     ( Tam==1 -> returnData = 10;
+
+%         Tam1 is Tam-1,
+
+%         Intersecao = checaIntercessao(Elem, X),
+%         percorre2_lista(Inicio, Tam, Lista, [Resp|Intersecao]),
+
+%         while(Tam1, Lista, Resp)
+%     ).
+
+% Calcula tamanho da lista
+tam([],0).
+tam([_|Resto],N) :- tam(Resto, NovoN), N is NovoN + 1.
+% Inverte lista
+inverte([],Z,Z).
+inverte([H|T],Z,Acc) :- inverte(T,Z,[H|Acc]).
 
 %pegar informacoes das figuras(Circulo: posicao do centro e raio,
 % quadrado: centro e lados -> vertices)
