@@ -39,17 +39,6 @@ percorre2_lista(N, [X|Xs], Elem, Resp) :-
         percorre2_lista(N1, Xs, Elem, Resp)
     ).
 
-% percorre2_lista(Inicio, Tam, [X|Xs], Elem, Resp) :-
-%     ( Tam==1 -> returnData = 10;
-
-%         Tam1 is Tam-1,
-
-%         Intersecao = checaIntercessao(Elem, X),
-%         percorre2_lista(Inicio, Tam, Lista, [Resp|Intersecao]),
-
-%         while(Tam1, Lista, Resp)
-%     ).
-
 % Calcula tamanho da lista
 tam([],0).
 tam([_|Resto],N) :- tam(Resto, NovoN), N is NovoN + 1.
