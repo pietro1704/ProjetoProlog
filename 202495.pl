@@ -14,9 +14,10 @@ topo:-
     % print(Impressao)
     tam(X,Tamanho),
     inverte(X,Invertida,[]),
+    write('RESP = '), nl, 
     percorre_lista(Tamanho, X, Invertida, [], Resp),
-    print(Resp),
-    print("oi").
+    write('RESP = '), nl, 
+    umPorLinha(Resp).
 
 
 % Formatação das saídas
@@ -29,14 +30,18 @@ nomeDosPares(circ(Nome1, _, _, _), circ(Nome2, _, _, _), R) :- R = (Nome1, Nome2
 nomeDosPares(quad(Nome1, _, _, _), circ(Nome2, _, _, _), R) :- R = (Nome1, Nome2).
 nomeDosPares(circ(Nome1, _, _, _), quad(Nome2, _, _, _), R) :- R = (Nome1, Nome2).
 
+umPorLinha([]):-!.
+umPorLinha([X|List]) :-
+    print(X),nl,
+    umPorLinha(List).
 
-%fazer os algoritmo tudo
+%algoritmo 
 percorre_lista(Tam, [X|Xs], Invertida, Acc, Resp) :-    Tam1 is Tam-1,
                                                         percorre2_lista(Tam, Invertida, X, [], Resp1),
                                                         % print(Tam), print(---), print(Acc),nl,
                                                         append(Resp1, Acc, Concat),
                                                         listaDeNomes(Acc, [], Lista),
-                                                        print(Lista), nl,
+                                                        print("lista de nomes:="),umPorLinha(Lista),
                                                         Tam > 0 -> percorre_lista(Tam1, Xs, Invertida, Concat, Resp); Resp = Acc.
 
 percorre2_lista(N, [X|Xs], Elem, Acc, Resp) :-  N1 is N - 1,
