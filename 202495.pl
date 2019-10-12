@@ -14,30 +14,20 @@ topo:-
     % print(Impressao)
     tam(X,Tamanho),
     inverte(X,Invertida,[]),
-    percorre_lista(Tamanho, X, Invertida, Resp), print(X).
-
+    percorre_lista(Tamanho, X, Invertida, [], Resp),
+    print(Resp),
+    print("oi").
 
 %fazer os algoritmo tudo
-percorre_lista(Tam, [X|Xs], Invertida, Resp) :-
-    ( Tam==0 -> Resp = true;
-    
-        Tam1 is Tam-1,
+percorre_lista(Tam, [X|Xs], Invertida, Acc, Resp) :-    Tam1 is Tam-1,
+                                                        percorre2_lista(Tam, Invertida, X, [], Resp1),
+                                                        print(Tam), print(---), print(Acc),nl,
+                                                        Tam > 0 -> percorre_lista(Tam1, Xs, Invertida, [Resp1|Acc], Resp); Resp = Acc.
 
-        percorre2_lista(Tam, Invertida, X, Resp),
+percorre2_lista(N, [X|Xs], Elem, Acc, Resp) :-  N1 is N - 1,
+                                                checaIntercessao(Elem,X,Interc),
+                                                N > 1 -> percorre2_lista(N1, Xs, Elem, [Interc|Acc], Resp); Resp = Acc.
 
-        percorre_lista(Tam1, Xs, Invertida, Resp)
-    ).
-
-
-percorre2_lista(N, [X|Xs], Elem, Resp) :-
-    ( N==1 -> Resp = true;
-
-        N1 is N -1,
-
-        print(Elem), print(-------), print(X), nl,
-
-        percorre2_lista(N1, Xs, Elem, Resp)
-    ).
 
 % Calcula tamanho da lista
 tam([],0).
