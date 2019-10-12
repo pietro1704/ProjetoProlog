@@ -18,11 +18,26 @@ topo:-
     print(Resp),
     print("oi").
 
+
+% Formatação das saídas
+% Pega o nome dos pares que tem intercessao
+listaDeNomes([], Lista, Lista).
+listaDeNomes([(X1, X2)|Xs], Acc, Lista) :- nomeDosPares(X1, X2, R), listaDeNomes(Xs, [R|Acc], Lista).
+
+nomeDosPares(quad(Nome1, _, _, _), quad(Nome2, _, _, _), R) :- R = (Nome1, Nome2).
+nomeDosPares(circ(Nome1, _, _, _), circ(Nome2, _, _, _), R) :- R = (Nome1, Nome2).
+nomeDosPares(quad(Nome1, _, _, _), circ(Nome2, _, _, _), R) :- R = (Nome1, Nome2).
+nomeDosPares(circ(Nome1, _, _, _), quad(Nome2, _, _, _), R) :- R = (Nome1, Nome2).
+
+
 %fazer os algoritmo tudo
 percorre_lista(Tam, [X|Xs], Invertida, Acc, Resp) :-    Tam1 is Tam-1,
                                                         percorre2_lista(Tam, Invertida, X, [], Resp1),
-                                                        print(Tam), print(---), print(Acc),nl,
-                                                        Tam > 0 -> percorre_lista(Tam1, Xs, Invertida, [Resp1|Acc], Resp); Resp = Acc.
+                                                        % print(Tam), print(---), print(Acc),nl,
+                                                        append(Resp1, Acc, Concat),
+                                                        listaDeNomes(Acc, [], Lista),
+                                                        print(Lista), nl,
+                                                        Tam > 0 -> percorre_lista(Tam1, Xs, Invertida, Concat, Resp); Resp = Acc.
 
 percorre2_lista(N, [X|Xs], Elem, Acc, Resp) :-  N1 is N - 1,
                                                 checaIntercessao(Elem,X,Interc),
@@ -35,6 +50,9 @@ tam([_|Resto],N) :- tam(Resto, NovoN), N is NovoN + 1.
 % Inverte lista
 inverte([],Z,Z).
 inverte([H|T],Z,Acc) :- inverte(T,Z,[H|Acc]).
+% Concatena duas listas
+append([],A,A).
+append([X|R],A,AA) :- append(R,A,RR), AA = [X|RR].
 
 %pegar informacoes das figuras(Circulo: posicao do centro e raio,
 % quadrado: centro e lados -> vertices)
@@ -60,12 +78,3 @@ distancia(X1,Y1,X2,Y2,D) :- D is sqrt((X2-X1)^2 + (Y2-Y1)^2).
 extremosQuadrado(X1,Y1,L,L1X,L1Y,R1X,R1Y) :- L1X is X1-L/2, L1Y is Y1+L/2, R1X is X1+L/2, R1Y is Y1-L/2 .
 % Calcula delta
 delta(CoordQuad,CoordCirc,Lado,Delta) :- Delta is (CoordCirc - max((CoordQuad-Lado/2), min(CoordCirc, (CoordQuad-Lado/2)+Lado))).
-
-
-
-%talvez separar pra nao ler a mesma intercessao 2 vezes
-
-%IMPRESSAO:
-%1. quantidade de pares com imtercessao
-%2. nomes dos pares de figuras
-

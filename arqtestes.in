@@ -1,1 +1,1 @@
-[circ(circulo1, 0, 0, 5), quad(quadrado1, 5, 5, 2), circ(circulo2, 2, 1, 6), quad(quadrado2, 3, 6, 3), circ(circulo3, 0, 7, 5)].
+[circ(circulo1, -7, -6, 5), quad(quadrado1, 5, 5, 2), circ(circulo2, 2, 1, 6), quad(quadrado2, 3, 6, 3)].
