@@ -51,14 +51,17 @@ percorreLista(Tam, [X|Xs], Invertida, Acc, Resp) :-
     % print(Tam), print(---), print(Acc),nl,
     append(Resp1, Acc, Concat),
     listaDeNomes(Acc, [], Lista),
-    print("lista de nomes:="),umPorLinha(Lista),
+    print("lista de nomes:="),print(Lista), nl, 
+    print('um por linha: '), umPorLinha(Lista),
     Tam1 is Tam-1,
     Tam > 0 -> percorreLista(Tam1, Xs, Invertida, Concat, Resp); Resp = Acc.
 
 %percorre2: ...checa Intersecao com o ultimo ate o posterior a ele 
 percorreLista2(N, [X|Xs], Elem, Acc, Resp) :- 
     N1 is N - 1,
+    nl, print('checando: '), print(Elem), print('--'), print(X),print('->'), nl, 
     checaIntersecao(Elem,X,Interc),
+    print(Interc), nl,
     N > 1 -> percorreLista2(N1, Xs, Elem, [Interc|Acc], Resp); Resp = Acc.
 
 % Concatena duas listas
