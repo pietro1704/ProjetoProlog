@@ -13,20 +13,26 @@ topo:-
     % FormataSaida(Resposta, Impressao)
     % print(Impressao)
     percorre_lista(X, R),
-    write(R),
-    print("oi").
+    tam(R,T),
+    print(T),nl,  
+    imprimeNomes(R).
 
+imprimeNomes([]) :- !.
+imprimeNomes([X|Xs]) :- !, print(X),nl, imprimeNomes(Xs).
 
-
-%fazer os algoritmo tudo
+%Percorre lista e pega primeiro elemento e o resto
 percorre_lista([], []) :- !.
 percorre_lista([_|[]], []) :- !.
 percorre_lista([X|Xs], R) :- !, procura_interc(X, Xs, R1), percorre_lista(Xs, R2), append(R1, R2, R).
 
+% Verifica para cada elemento sua interseccao com o resto da lista
 procura_interc(_, [],[]) :- !.
 procura_interc(Elem, [X|Xs], R) :- !, checaIntercessao(Elem, X, R1), procura_interc(Elem, Xs, R2), append(R1, R2, R).
 
 
+% Calcula tamanho da lista
+tam([],0).
+tam([_|Resto],N) :- tam(Resto, NovoN), N is NovoN + 1.
 % Concatena duas listas
 append([],A,A).
 append([X|R],A,AA) :- append(R,A,RR), AA = [X|RR].
